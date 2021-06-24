@@ -1,0 +1,11 @@
+/home/pingqibin/TinyWebServer/build/CMakeFiles/rebuild_cache.dir
+/home/pingqibin/TinyWebServer/build/CMakeFiles/edit_cache.dir
+/home/pingqibin/TinyWebServer/build/error/CMakeFiles/rebuild_cache.dir
+/home/pingqibin/TinyWebServer/build/error/CMakeFiles/error.dir
+/home/pingqibin/TinyWebServer/build/error/CMakeFiles/edit_cache.dir
+/home/pingqibin/TinyWebServer/build/http/CMakeFiles/rebuild_cache.dir
+/home/pingqibin/TinyWebServer/build/http/CMakeFiles/httpConn.dir
+/home/pingqibin/TinyWebServer/build/http/CMakeFiles/edit_cache.dir
+/home/pingqibin/TinyWebServer/build/src/CMakeFiles/rebuild_cache.dir
+/home/pingqibin/TinyWebServer/build/src/CMakeFiles/webserver.dir
+/home/pingqibin/TinyWebServer/build/src/CMakeFiles/edit_cache.dir

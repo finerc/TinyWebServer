@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pingqibin/TinyWebServer/error/m_error.cpp
+m_error.h
+/home/pingqibin/TinyWebServer/error/m_error.h
+
+/home/pingqibin/TinyWebServer/error/m_error.h
+stdio.h
+-
+stdlib.h
+/home/pingqibin/TinyWebServer/error/stdlib.h
+
