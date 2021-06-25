@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pingqibin/TinyWebServer
+CMAKE_SOURCE_DIR = /home/pingqibin/TinyWebServer_thread
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pingqibin/TinyWebServer/build
+CMAKE_BINARY_DIR = /home/pingqibin/TinyWebServer_thread/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pingqibin/TinyWebServer/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles /home/pingqibin/TinyWebServer/build/http/CMakeFiles/progress.marks
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f CMakeFiles/Makefile2 http/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 0
+	cd /home/pingqibin/TinyWebServer_thread/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles /home/pingqibin/TinyWebServer_thread/build/http/CMakeFiles/progress.marks
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f CMakeFiles/Makefile2 http/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f CMakeFiles/Makefile2 http/clean
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f CMakeFiles/Makefile2 http/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f CMakeFiles/Makefile2 http/preinstall
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f CMakeFiles/Makefile2 http/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f CMakeFiles/Makefile2 http/preinstall
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f CMakeFiles/Makefile2 http/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/pingqibin/TinyWebServer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/pingqibin/TinyWebServer_thread/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 http/CMakeFiles/httpConn.dir/rule:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f CMakeFiles/Makefile2 http/CMakeFiles/httpConn.dir/rule
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f CMakeFiles/Makefile2 http/CMakeFiles/httpConn.dir/rule
 .PHONY : http/CMakeFiles/httpConn.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ httpConn: http/CMakeFiles/httpConn.dir/rule
 
 # fast build rule for target.
 httpConn/fast:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/build
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/build
 .PHONY : httpConn/fast
 
 httpConn.o: httpConn.cpp.o
@@ -131,7 +131,7 @@ httpConn.o: httpConn.cpp.o
 
 # target to build an object file
 httpConn.cpp.o:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.o
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.o
 .PHONY : httpConn.cpp.o
 
 httpConn.i: httpConn.cpp.i
@@ -140,7 +140,7 @@ httpConn.i: httpConn.cpp.i
 
 # target to preprocess a source file
 httpConn.cpp.i:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.i
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.i
 .PHONY : httpConn.cpp.i
 
 httpConn.s: httpConn.cpp.s
@@ -149,7 +149,7 @@ httpConn.s: httpConn.cpp.s
 
 # target to generate assembly for a file
 httpConn.cpp.s:
-	cd /home/pingqibin/TinyWebServer/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.s
+	cd /home/pingqibin/TinyWebServer_thread/build && $(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/httpConn.cpp.s
 .PHONY : httpConn.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/pingqibin/TinyWebServer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/pingqibin/TinyWebServer_thread/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

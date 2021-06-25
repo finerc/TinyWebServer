@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/pingqibin/TinyWebServer/error/m_error.cpp
+/home/pingqibin/TinyWebServer_thread/error/m_error.cpp
 m_error.h
-/home/pingqibin/TinyWebServer/error/m_error.h
+/home/pingqibin/TinyWebServer_thread/error/m_error.h
 
-/home/pingqibin/TinyWebServer/error/m_error.h
+/home/pingqibin/TinyWebServer_thread/error/m_error.h
 stdio.h
 -
 stdlib.h
-/home/pingqibin/TinyWebServer/error/stdlib.h
+/home/pingqibin/TinyWebServer_thread/error/stdlib.h
 

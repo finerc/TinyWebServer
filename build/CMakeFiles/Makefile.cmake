@@ -13,6 +13,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.13.4/CMakeSystem.cmake"
   "../error/CMakeLists.txt"
   "../http/CMakeLists.txt"
+  "../ringbuffer/CMakeLists.txt"
   "../src/CMakeLists.txt"
   "/usr/share/cmake-3.13/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.13/Modules/CMakeCXXInformation.cmake"
@@ -43,6 +44,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "error/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "ringbuffer/CMakeFiles/CMakeDirectoryInformation.cmake"
   "http/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
@@ -50,6 +52,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "error/CMakeFiles/error.dir/DependInfo.cmake"
+  "ringbuffer/CMakeFiles/ringbuffer.dir/DependInfo.cmake"
   "http/CMakeFiles/httpConn.dir/DependInfo.cmake"
   "src/CMakeFiles/webserver.dir/DependInfo.cmake"
   )

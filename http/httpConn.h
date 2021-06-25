@@ -1,7 +1,7 @@
 /*
  * @Author: qibin
  * @Date: 2021-06-23 16:01:52
- * @LastEditTime: 2021-06-24 14:29:47
+ * @LastEditTime: 2021-06-25 18:07:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /pingqibin/TinyWebServer/http/httpConn.h
@@ -18,9 +18,12 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdarg.h>
+#include "ringbuffer.h"
+#include <sys/fcntl.h>
 
 class httpConn {
 public:
+    const char *pack = "abcdefghij";
     static const int INBUFSIZE = 8192;
     static const int OUTBUFSIZE = 4096;
     const char *resource_path = "../htdocs";
@@ -72,13 +75,16 @@ public:
     };
 
 private:
+    const int pack_num = 1000;
+    const int pack_size = 10;
+    static int nn;
     int sockfd;
     int epollfd;
-    char inbuffer[INBUFSIZE];
-    char outbuffer[OUTBUFSIZE];
-    int read_idx;
-    int write_idx;
-    int write_remain;
+    
+    ringbuffer inbuffer;
+    ringbuffer outbuffer;
+    int pack_id;
+    int pack_index;
     int check_idx;
     int line_start;
     CHECK_STATE check_state;
@@ -97,6 +103,8 @@ private:
 public:
     httpConn() = default;
     ~httpConn() = default;
+    httpConn(const httpConn& rhs) = default;
+    httpConn& operator=(const httpConn& rhs) = default;
 
 public:
     httpConn(int __fd, int __epollfd):sockfd(__fd), epollfd(__epollfd) {}
@@ -111,6 +119,7 @@ public:
     bool add_content_type();
     bool add_linger();
     bool add_resource();
+    int write_resource();
     bool add_blank_line();
     bool add_content(const char *content);
     LINE_STATUS parseLine();

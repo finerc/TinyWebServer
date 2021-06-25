@@ -31,8 +31,24 @@ sys/stat.h
 -
 stdarg.h
 -
+ringbuffer.h
+../src/../http/ringbuffer.h
 
-/home/pingqibin/TinyWebServer/src/main.cpp
+../src/../ringbuffer/ringbuffer.h
+stddef.h
+-
+exception
+-
+unistd.h
+-
+iostream
+-
+string.h
+-
+m_error.h
+../src/../ringbuffer/m_error.h
+
+/home/pingqibin/TinyWebServer_thread/src/main.cpp
 sys/socket.h
 -
 sys/epoll.h
@@ -54,7 +70,11 @@ iostream
 unordered_map
 -
 m_error.h
-/home/pingqibin/TinyWebServer/src/m_error.h
+/home/pingqibin/TinyWebServer_thread/src/m_error.h
 httpConn.h
-/home/pingqibin/TinyWebServer/src/httpConn.h
+/home/pingqibin/TinyWebServer_thread/src/httpConn.h
+thread
+-
+functional
+-
 

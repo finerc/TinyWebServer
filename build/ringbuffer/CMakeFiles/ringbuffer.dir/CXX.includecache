@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../ringbuffer/../error/m_error.h
+stdio.h
+-
+stdlib.h
+../ringbuffer/../error/stdlib.h
+
+/home/pingqibin/TinyWebServer_thread/ringbuffer/ringbuffer.cpp
+ringbuffer.h
+/home/pingqibin/TinyWebServer_thread/ringbuffer/ringbuffer.h
+
+/home/pingqibin/TinyWebServer_thread/ringbuffer/ringbuffer.h
+stddef.h
+-
+exception
+-
+unistd.h
+-
+iostream
+-
+string.h
+-
+m_error.h
+/home/pingqibin/TinyWebServer_thread/ringbuffer/m_error.h
+

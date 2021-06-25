@@ -1,4 +1,4 @@
-# Install script for directory: /home/pingqibin/TinyWebServer/http
+# Install script for directory: /home/pingqibin/TinyWebServer_thread/http
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

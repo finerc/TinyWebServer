@@ -1,4 +1,4 @@
-# Install script for directory: /home/pingqibin/TinyWebServer
+# Install script for directory: /home/pingqibin/TinyWebServer_thread
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,9 +39,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/pingqibin/TinyWebServer/build/error/cmake_install.cmake")
-  include("/home/pingqibin/TinyWebServer/build/http/cmake_install.cmake")
-  include("/home/pingqibin/TinyWebServer/build/src/cmake_install.cmake")
+  include("/home/pingqibin/TinyWebServer_thread/build/error/cmake_install.cmake")
+  include("/home/pingqibin/TinyWebServer_thread/build/ringbuffer/cmake_install.cmake")
+  include("/home/pingqibin/TinyWebServer_thread/build/http/cmake_install.cmake")
+  include("/home/pingqibin/TinyWebServer_thread/build/src/cmake_install.cmake")
 
 endif()
 
@@ -53,5 +54,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/pingqibin/TinyWebServer/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/pingqibin/TinyWebServer_thread/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

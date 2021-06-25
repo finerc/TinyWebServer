@@ -59,10 +59,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pingqibin/TinyWebServer
+CMAKE_SOURCE_DIR = /home/pingqibin/TinyWebServer_thread
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pingqibin/TinyWebServer/build
+CMAKE_BINARY_DIR = /home/pingqibin/TinyWebServer_thread/build
 
 #=============================================================================
 # Directory level rules for directory error
@@ -89,7 +89,7 @@ error/preinstall:
 error/CMakeFiles/error.dir/all:
 	$(MAKE) -f error/CMakeFiles/error.dir/build.make error/CMakeFiles/error.dir/depend
 	$(MAKE) -f error/CMakeFiles/error.dir/build.make error/CMakeFiles/error.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer/build/CMakeFiles --progress-num=1,2 "Built target error"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer_thread/build/CMakeFiles --progress-num=1,2 "Built target error"
 .PHONY : error/CMakeFiles/error.dir/all
 
 # Include target in all.
@@ -99,9 +99,9 @@ all: error/CMakeFiles/error.dir/all
 
 # Build rule for subdir invocation for target.
 error/CMakeFiles/error.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 error/CMakeFiles/error.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 0
 .PHONY : error/CMakeFiles/error.dir/rule
 
 # Convenience name for target.
@@ -116,6 +116,61 @@ error/CMakeFiles/error.dir/clean:
 
 # clean rule for target.
 clean: error/CMakeFiles/error.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory ringbuffer
+
+# Convenience name for "all" pass in the directory.
+ringbuffer/all: ringbuffer/CMakeFiles/ringbuffer.dir/all
+
+.PHONY : ringbuffer/all
+
+# Convenience name for "clean" pass in the directory.
+ringbuffer/clean: ringbuffer/CMakeFiles/ringbuffer.dir/clean
+
+.PHONY : ringbuffer/clean
+
+# Convenience name for "preinstall" pass in the directory.
+ringbuffer/preinstall:
+
+.PHONY : ringbuffer/preinstall
+
+#=============================================================================
+# Target rules for target ringbuffer/CMakeFiles/ringbuffer.dir
+
+# All Build rule for target.
+ringbuffer/CMakeFiles/ringbuffer.dir/all:
+	$(MAKE) -f ringbuffer/CMakeFiles/ringbuffer.dir/build.make ringbuffer/CMakeFiles/ringbuffer.dir/depend
+	$(MAKE) -f ringbuffer/CMakeFiles/ringbuffer.dir/build.make ringbuffer/CMakeFiles/ringbuffer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer_thread/build/CMakeFiles --progress-num=5,6 "Built target ringbuffer"
+.PHONY : ringbuffer/CMakeFiles/ringbuffer.dir/all
+
+# Include target in all.
+all: ringbuffer/CMakeFiles/ringbuffer.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+ringbuffer/CMakeFiles/ringbuffer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 ringbuffer/CMakeFiles/ringbuffer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 0
+.PHONY : ringbuffer/CMakeFiles/ringbuffer.dir/rule
+
+# Convenience name for target.
+ringbuffer: ringbuffer/CMakeFiles/ringbuffer.dir/rule
+
+.PHONY : ringbuffer
+
+# clean rule for target.
+ringbuffer/CMakeFiles/ringbuffer.dir/clean:
+	$(MAKE) -f ringbuffer/CMakeFiles/ringbuffer.dir/build.make ringbuffer/CMakeFiles/ringbuffer.dir/clean
+.PHONY : ringbuffer/CMakeFiles/ringbuffer.dir/clean
+
+# clean rule for target.
+clean: ringbuffer/CMakeFiles/ringbuffer.dir/clean
 
 .PHONY : clean
 
@@ -141,10 +196,10 @@ http/preinstall:
 # Target rules for target http/CMakeFiles/httpConn.dir
 
 # All Build rule for target.
-http/CMakeFiles/httpConn.dir/all:
+http/CMakeFiles/httpConn.dir/all: ringbuffer/CMakeFiles/ringbuffer.dir/all
 	$(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/depend
 	$(MAKE) -f http/CMakeFiles/httpConn.dir/build.make http/CMakeFiles/httpConn.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer/build/CMakeFiles --progress-num=3,4 "Built target httpConn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer_thread/build/CMakeFiles --progress-num=3,4 "Built target httpConn"
 .PHONY : http/CMakeFiles/httpConn.dir/all
 
 # Include target in all.
@@ -154,9 +209,9 @@ all: http/CMakeFiles/httpConn.dir/all
 
 # Build rule for subdir invocation for target.
 http/CMakeFiles/httpConn.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 http/CMakeFiles/httpConn.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 0
 .PHONY : http/CMakeFiles/httpConn.dir/rule
 
 # Convenience name for target.
@@ -197,10 +252,11 @@ src/preinstall:
 
 # All Build rule for target.
 src/CMakeFiles/webserver.dir/all: error/CMakeFiles/error.dir/all
+src/CMakeFiles/webserver.dir/all: ringbuffer/CMakeFiles/ringbuffer.dir/all
 src/CMakeFiles/webserver.dir/all: http/CMakeFiles/httpConn.dir/all
 	$(MAKE) -f src/CMakeFiles/webserver.dir/build.make src/CMakeFiles/webserver.dir/depend
 	$(MAKE) -f src/CMakeFiles/webserver.dir/build.make src/CMakeFiles/webserver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer/build/CMakeFiles --progress-num=5,6 "Built target webserver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pingqibin/TinyWebServer_thread/build/CMakeFiles --progress-num=7,8 "Built target webserver"
 .PHONY : src/CMakeFiles/webserver.dir/all
 
 # Include target in all.
@@ -210,9 +266,9 @@ all: src/CMakeFiles/webserver.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/webserver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/webserver.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pingqibin/TinyWebServer_thread/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/webserver.dir/rule
 
 # Convenience name for target.

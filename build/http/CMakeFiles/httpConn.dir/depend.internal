@@ -3,5 +3,6 @@
 
 http/CMakeFiles/httpConn.dir/httpConn.cpp.o
  ../http/../error/m_error.h
- /home/pingqibin/TinyWebServer/http/httpConn.cpp
- /home/pingqibin/TinyWebServer/http/httpConn.h
+ ../http/../ringbuffer/ringbuffer.h
+ /home/pingqibin/TinyWebServer_thread/http/httpConn.cpp
+ /home/pingqibin/TinyWebServer_thread/http/httpConn.h

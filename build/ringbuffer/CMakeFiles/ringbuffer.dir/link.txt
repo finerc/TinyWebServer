@@ -1,0 +1,2 @@
+/usr/bin/ar qc libringbuffer.a  CMakeFiles/ringbuffer.dir/ringbuffer.cpp.o
+/usr/bin/ranlib libringbuffer.a

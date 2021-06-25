@@ -1,7 +1,7 @@
 /*
  * @Author: qibin
  * @Date: 2021-06-23 14:47:38
- * @LastEditTime: 2021-06-24 15:36:14
+ * @LastEditTime: 2021-06-25 17:26:25
  * @LastEditors: Please set LastEditors
  * @Description: main loop
  * @FilePath: /pingqibin/TinyWebServer/src/main.cpp
@@ -19,6 +19,8 @@
 #include <unordered_map>
 #include "m_error.h"
 #include "httpConn.h"
+#include <thread>
+#include <functional>
 
 const int PORT = 8888;
 const int MAXFD = 10000;
@@ -68,6 +70,7 @@ int main(int args, char **argv) {
     std::cout <<"webserver" << std::endl;
 
     for( ; ; ) {
+        
         int epoll_ret = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, -1);
         if(epoll_ret < 0) {
             sys_quit("epoll wait error");

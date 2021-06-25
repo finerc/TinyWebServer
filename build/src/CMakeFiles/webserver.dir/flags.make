@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/pingqibin/TinyWebServer/src/../error -I/home/pingqibin/TinyWebServer/src/../http 
+CXX_INCLUDES = -I/home/pingqibin/TinyWebServer_thread/src/../error -I"/home/pingqibin/TinyWebServer_thread/src/(" -I/home/pingqibin/TinyWebServer_thread/src/../ringbuffer -I"/home/pingqibin/TinyWebServer_thread/src/)" -I/home/pingqibin/TinyWebServer_thread/src/../http 
 

@@ -1,1 +1,1 @@
-/usr/bin/c++    -rdynamic CMakeFiles/webserver.dir/main.cpp.o  -o webserver ../error/liberror.a ../http/libhttpConn.a 
+/usr/bin/c++    -rdynamic CMakeFiles/webserver.dir/main.cpp.o  -o webserver ../error/liberror.a ../ringbuffer/libringbuffer.a ../http/libhttpConn.a -lpthread ../ringbuffer/libringbuffer.a 

@@ -8,6 +8,7 @@ aux_source_directory(. DIR_SRCS)
 # 添加lib子目录
 # 由于echo依赖wrapper， 因此一定要把wrapper写到前面
 add_subdirectory(error)
+add_subdirectory(ringbuffer)
 add_subdirectory(http)
 add_subdirectory(src)
 # add_subdirectory(clientConn)

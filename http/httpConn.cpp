@@ -1,7 +1,7 @@
 /*
  * @Author: qibin
  * @Date: 2021-06-23 16:01:45
- * @LastEditTime: 2021-06-24 15:49:48
+ * @LastEditTime: 2021-06-25 18:13:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /pingqibin/TinyWebServer/http/httpConn.cpp
@@ -13,9 +13,29 @@
 
 #include "httpConn.h"
 
+// httpConn::httpConn(const httpConn& rhs) {
+    
+// }
+
+// httpConn& httpConn::operator=(const httpConn& rhs) {
+
+// }
+
+
+// httpConn::~httpConn() {
+//     std::cout << "deconstructor httpConn" << nn << std::endl;
+//     // if(inbuffer) delete inbuffer;
+//     // if(outbuffer) delete outbuffer;
+// }
+
+int httpConn::nn = 0;
+
 void httpConn::init() {
+
+    // inbuffer = new ringbuffer(INBUFSIZE);
+    // outbuffer = new ringbuffer(OUTBUFSIZE);
+
     line_start = 0;
-    read_idx = 0;
     check_idx = 0;
     check_state = CHECK_STATE_REQUESTLINE;
     method = GET;
@@ -23,94 +43,58 @@ void httpConn::init() {
     version = HTTP1_1;
     linger = false;
 
-    write_idx = 0;
-    write_remain = 0;
+    pack_id = 0;
+    pack_index = 0;
 
     resource = NULL;
-
-    memset(inbuffer, '\0', INBUFSIZE);
-    memset(outbuffer, '\0', OUTBUFSIZE);
 }
 
 void httpConn::modfd(int ev) {
     epoll_event event;
     event.data.fd = sockfd;
-    event.events = ev | EPOLLET;
+    event.events = ev | EPOLLET | EPOLLONESHOT;
 
     epoll_ctl(epollfd, EPOLL_CTL_MOD, sockfd, &event);
-    
 }
 
 int httpConn::m_read() {
-    if(read_idx >= INBUFSIZE) {
-        // inbuffer overflow
-        return -1;
-    }
-    int read_count = 0;
-    // read from buffer, ET mode
-    while(true) {
-        int n = recv(sockfd, inbuffer + read_idx, INBUFSIZE - read_count, MSG_DONTWAIT);
-        if(n == -1) {
-            if(errno == EAGAIN || errno ==  EWOULDBLOCK)
-                break;
-            sys_err("recv error");
-            return -1;
-        }
-        else if(n == 0) {
-            return 0;
-        }
-        else {
-            read_idx += n;
-            read_count += n;
-        }
-    }
-    return read_count;
+    // block read
+    int n = inbuffer.read_socket(sockfd, inbuffer.freeSize());
+    // std::cout << inbuffer.size() << std::endl;
+    return n;
 }
 
 int httpConn::m_write() {
-    if(write_remain == 0) {
-        modfd(EPOLLIN);
-        return 0;
+    // block write
+    int n = 0;
+    if(!outbuffer.empty()) {
+        n = outbuffer.write_socket(sockfd, outbuffer.size());
+        if(n == -1 || n == 0)
+            return n;
     }
-    int write_count = 0;
+    int m = write_resource();
+    if(m == -1 || m == 0)
+        return m;
+    else 
+        return n + m; 
 
-    while(true) {
-        int n = send(sockfd, outbuffer + write_idx, write_remain, MSG_DONTWAIT);
-        if(n < 0) {
-            if(errno == EAGAIN || errno == EWOULDBLOCK) 
-                break;
-            sys_err("send error");
-            return -1;
-        }
-
-        write_idx += n;
-        write_count += n;
-        write_remain -= n;
-
-        if(write_remain == 0) {
-            modfd(EPOLLIN);
-            return write_count;
-        }
-    }
-
-    // std::cout <<  "write count: " << write_count << std::endl;
-
-    return write_count;
 }
 
 bool httpConn::add_response(const char* format, ...) {
-    if(write_idx >= OUTBUFSIZE)
+    if(outbuffer.full())
         return false;
     va_list arg_list;
     va_start(arg_list, format);
 
-    int len = vsnprintf(outbuffer + write_remain, OUTBUFSIZE - 1 - write_remain, format, arg_list);
-    if (len >= (OUTBUFSIZE - 1 - write_idx))
+    char tempbuffer[100];
+
+    int len = vsnprintf(tempbuffer, 100, format, arg_list);
+    if (len >= 100 || len < 0)
     {
         va_end(arg_list);
         return false;
     }
-    write_remain += len;
+    outbuffer.read_buf(tempbuffer, len);
     va_end(arg_list);
 
     return true;
@@ -154,46 +138,77 @@ bool httpConn::add_content(const char *content)
 
 bool httpConn::add_resource()
 {
-    if(!resource) return false;
-    int resfd = fileno(resource);
-    while(int n = read(resfd, outbuffer + write_remain, OUTBUFSIZE - 1 - write_remain))
-    {
-        if(n<0) {
-            sys_err("read resource error");
-            return false;
-        }
-        else if(n == 0) {
-            break;
-        }
-        else {
-            write_remain += n;
-        }
-    }
-    fclose(resource);
+    // if(!resource) return false;
+    // int resfd = fileno(resource);
+    // while(int n = read(resfd, outbuffer + write_remain, OUTBUFSIZE - 1 - write_remain))
+    // {
+    //     if(n<0) {
+    //         sys_err("read resource error");
+    //         return false;
+    //     }
+    //     else if(n == 0) {
+    //         break;
+    //     }
+    //     else {
+    //         write_remain += n;
+    //     }
+    // }
+    // fclose(resource);
 
     return true;
 }
 
+int httpConn::write_resource()
+{
+    int flags = fcntl(sockfd, F_GETFL, 0);
+    fcntl(sockfd, F_SETFL, flags & (~O_NONBLOCK));
 
+    // blocked read
+
+    for(int i=pack_id;i<pack_num;i++) {
+        int n = send(sockfd, pack+pack_index, 10-pack_index, 0);
+        if(n == -1) {
+            if(errno == EAGAIN || errno == EWOULDBLOCK) 
+                break;
+            sys_err("send pack error");
+            return -1;
+        }
+        else if(n == 0){
+            return 0;
+        }
+        else {
+            pack_index = pack_index + n;
+            if(pack_index<10) {
+                i--;
+                continue;
+            }
+            else {
+                pack_index = 0;
+            }
+        }
+    }
+
+    fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
+}
 
 httpConn::LINE_STATUS httpConn::parseLine() {
     char ch;
-    for( ; check_idx < read_idx; check_idx++) {
-        ch = inbuffer[check_idx];
+    for( ; check_idx < inbuffer.size(); check_idx++) {
+        ch = inbuffer.at(check_idx);
         if(ch == '\r') {
-            if(check_idx + 1 == read_idx)
+            if(check_idx + 1 == inbuffer.size())
                 return LINE_OPEN;
-            else if(inbuffer[check_idx+1] == '\n') {
-                inbuffer[check_idx++] = '\0';
-                inbuffer[check_idx++] = '\0';
+            else if(inbuffer.at(check_idx + 1) == '\n') {
+                inbuffer.at(check_idx++) = '\0';
+                inbuffer.at(check_idx++) = '\0';
                 return LINE_OK;
             }
             return LINE_BAD;
         }
         else if(ch == '\n') {
-            if(check_idx > 1 && inbuffer[check_idx-1] == '\r') {
-                inbuffer[check_idx-1] = '\0';
-                inbuffer[check_idx++] = '\0';
+            if(check_idx > 1 && inbuffer.at(check_idx - 1) == '\r') {
+                inbuffer.at(check_idx-1) = '\0';
+                inbuffer.at(check_idx++) = '\0';
                 return LINE_OK;
             }
             return LINE_BAD;
@@ -306,7 +321,7 @@ httpConn::HTTP_CODE httpConn::processRead() {
 
 
     while((check_state == CHECK_STATE_CONTENT && line_status == LINE_OK) || ((line_status=parseLine()) == LINE_OK)) {
-        text = inbuffer + line_start;
+        text = inbuffer.readAddr() + line_start;
         line_start = check_idx;
 
         switch(check_state) {
@@ -335,16 +350,16 @@ httpConn::HTTP_CODE httpConn::processRead() {
 }
 
 httpConn::HTTP_CODE httpConn::processRequest() {
-    char resource_root[100];
-    strcpy(resource_root, resource_path);
-    strcat(resource_root, url);
-    resource = fopen(resource_root, "r");
-    if(!resource) {
-        return NO_RESOURCE;
-    }
+    // char resource_root[100];
+    // strcpy(resource_root, resource_path);
+    // strcat(resource_root, url);
+    // resource = fopen(resource_root, "r");
+    // if(!resource) {
+    //     return NO_RESOURCE;
+    // }
 
-    if (stat(resource_root, &resource_stat) < 0)
-        return NO_RESOURCE;
+    // if (stat(resource_root, &resource_stat) < 0)
+    //     return NO_RESOURCE;
 
     return FILE_REQUEST;
 }
@@ -356,26 +371,29 @@ bool httpConn::processWrite(httpConn::HTTP_CODE code) {
             add_headers(strlen(error_404_form));
             if (!add_content(error_404_form))
                 return false;
+            if(m_write() < 0)
+                return false;
             break;
         case BAD_REQUEST: {
             add_status_line(400, error_400_title);
             add_headers(strlen(error_400_form));
             if (!add_content(error_400_form))
                 return false;
+            if(m_write() < 0)
+                return false;
             break;
         }
         case FILE_REQUEST:
             add_status_line(200, ok_200_title);
-            add_headers(resource_stat.st_size);
-            if(!add_resource())
+            add_headers(pack_num * pack_size);
+            if(m_write() < 0)
                 return false;
+            // if(!write_resource())
+            //     return false;
             break;
         default:
             return false;
     }
-
-    // if(m_write() < 0)
-    //     return false;
 
     return true;
 }
@@ -388,6 +406,7 @@ bool httpConn::process()
         modfd(EPOLLIN);
         return true;
     }
+
     bool write_ret = processWrite(read_ret);
     modfd(EPOLLOUT);
 

@@ -3,5 +3,6 @@
 
 src/CMakeFiles/webserver.dir/main.cpp.o: ../src/../error/m_error.h
 src/CMakeFiles/webserver.dir/main.cpp.o: ../src/../http/httpConn.h
+src/CMakeFiles/webserver.dir/main.cpp.o: ../src/../ringbuffer/ringbuffer.h
 src/CMakeFiles/webserver.dir/main.cpp.o: ../src/main.cpp
 
